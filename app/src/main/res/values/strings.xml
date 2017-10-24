@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HW05</string>
+    <string name="yes">Update</string>
+    <string name="no">Do not update</string>
+    <string name="close">Close app</string>
+    <string name="message_text">New version is available</string>
+</resources>
