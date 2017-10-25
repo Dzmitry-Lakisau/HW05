@@ -2,7 +2,7 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
     <servlet>
         <servlet-name>MyServlet</servlet-name>
-        <servlet-class>by.dzmitry_lakisau.hw05.servlet.MyServlet</servlet-class>
+        <servlet-class>by.dzmitry_lakisau.hw05.servlet.UpdateServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>

@@ -3,6 +3,7 @@ package by.dzmitry_lakisau.hw05;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.fragment.BuildConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,7 +16,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
-class ServletGetAsyncTask extends AsyncTask<Void, Void, String> {
+public class ServletGetAsyncTask extends AsyncTask<Void, Void, String> {
 
     private final Activity mContext;
 
@@ -27,14 +28,12 @@ class ServletGetAsyncTask extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... params) {
 
         try {
-            URL url = new URL(Constants.SERVLET_URL + "/update");
+            URL url = new URL(Constants.SERVLET_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
 //            connection.setDoOutput(true);
             connection.connect();
-
-            String temp = connection.getRequestMethod();
 
             int responseCode = connection.getResponseCode();
             StringBuilder response = new StringBuilder();

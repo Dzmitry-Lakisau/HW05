@@ -3,9 +3,9 @@ package by.dzmitry_lakisau.hw05;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 public class DialogFragment extends android.app.DialogFragment {
 
@@ -31,7 +31,8 @@ public class DialogFragment extends android.app.DialogFragment {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Intent intent =  new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.LINK_TO_UPDATE));
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton(negativeButtonString, new DialogInterface.OnClickListener() {

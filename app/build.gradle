@@ -1,6 +1,24 @@
 apply plugin: 'com.android.application'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
@@ -13,21 +31,41 @@ android {
     }
     buildTypes {
         release {
+            debuggable true
+            applicationIdSuffix '.release'
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix '.debug'
+        }
+    }
+
+    productFlavors {
+        GooglePlay {
+            dimension "store"
+            buildConfigField "String", "LINK_TO_UPDATE", "\"https://play.google.com\""
+            targetSdkVersion 26
+        }
+        AmazonAppstore {
+            dimension "store"
+            buildConfigField "String", "LINK_TO_UPDATE", "\"https://www.amazon.com/mobile-apps\""
+            targetSdkVersion 23
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
-//    compile project(path: ':backend', configuration: 'android-endpoints')
+    debugCompile project(path: ':servlet')
+    releaseCompile project(path: ':backend', configuration: 'android-endpoints')
 }

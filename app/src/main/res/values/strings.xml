@@ -4,4 +4,8 @@
     <string name="no">Do not update</string>
     <string name="close">Close app</string>
     <string name="message_text">New version is available</string>
+    <string name="fu_true_v_2">force_update=true,version=2</string>
+    <string name="fu_false_v_2">force_update=false,version=2</string>
+    <string name="fu_true_v_1">force_update=true,version=1</string>
+    <string name="fu_false_v_1">force_update=false,version=1</string>
 </resources>
